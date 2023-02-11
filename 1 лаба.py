@@ -2,16 +2,11 @@
 Нечетные четырехричные числа, не превышающие 102410, у которых вторая справа цифра равна 3. Выводит на
 экран цифры числа, исключая тройки. Вычисляется среднее число между минимальным и максимальным и выводится прописью. """
 
-x = open('test.txt')
-a = list(x.read())
-
-if not a:
-    print('Файл пустой.')
-    quit()
 
 m = []
 chisla = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
-a = [int(x) for x in a if x in chisla]
+buffer_len = 1  # размер буфера чтения
+work_buffer = ''
 
 
 def chet(v):
@@ -36,64 +31,35 @@ def slovo(x):
          }
     return z[x]
 
-
-for i in range(len(a) - 1):
-    s = str(a[i]) + str(a[i + 1])
-    if 0 < a[i] < 4 and a[i + 1] < 4:
-        if int(s) < chet(1025):
-            if int(s) % 2 == 1:
-                if s[-2] == '3':
-                    m += [int(s)]
-                    l = ''
-                    for i in range(len(s)):
-                        if s[i] != '3':
-                            l += s[i]
+with open('test.txt') as f:
+    buffer = f.read(buffer_len)
+    if not buffer:
+        print('Файл пустой.')
+        quit()
+    while buffer:
+        while '0' <= buffer <= '3':
+            if '0' <= buffer <= '3':
+                work_buffer += buffer
+            buffer = f.read(buffer_len)
+        if len(work_buffer) > 0:
+            flag = True
+            for i in range(len(work_buffer)):
+                if work_buffer[i] not in chisla:
+                    flag = False
+            if flag and len(work_buffer) > 1:
+                if work_buffer[-2] == '3' and int(work_buffer) < chet(1025) and int(work_buffer) % 2 == 1:
+                    m += [int(work_buffer)]
+                    l = work_buffer.replace('3', '')
                     print(l)
+        work_buffer = ''
+        buffer = f.read(buffer_len)
 
-for i in range(len(a) - 2):
-    s = str(a[i]) + str(a[i + 1]) + str(a[i + 2])
-    if 0 < a[i] < 4 and a[i + 1] < 4 and a[i + 2] < 4:
-        if int(s) < chet(1025):
-            if int(s) % 2 == 1:
-                if s[-2] == '3':
-                    m += [int(s)]
-                    l = ''
-                    for i in range(len(s)):
-                        if s[i] != '3':
-                            l += s[i]
-                    print(l)
-
-for i in range(len(a) - 3):
-    s = str(a[i]) + str(a[i + 1]) + str(a[i + 2]) + str(a[i + 3])
-    if 0 < a[i] < 4 and a[i + 1] < 4 and a[i + 2] < 4 and a[i + 3] < 4:
-        if int(s) < chet(1025):
-            if int(s) % 2 == 1:
-                if s[-2] == '3':
-                    m += [int(s)]
-                    l = ''
-                    for i in range(len(s)):
-                        if s[i] != '3':
-                            l += s[i]
-                    print(l)
-
-for i in range(len(a) - 4):
-    s = str(a[i]) + str(a[i + 1]) + str(a[i + 2]) + str(a[i + 3]) + str(a[i + 4])
-    if 0 < a[i] < 4 and a[i + 1] < 4 and a[i + 2] < 4 and a[i + 3] < 4 and a[i + 4] < 4:
-        if int(s) < chet(1025):
-            if int(s) % 2 == 1:
-                if s[-2] == '3':
-                    m += [int(s)]
-                    l = ''
-                    for i in range(len(s)):
-                        if s[i] != '3':
-                            l += s[i]
-                    print(l)
-
-sred = (max(m) + min(m)) // 2
-
-k = ''
-for i in range(len(str(sred))):
-    g = slovo(str(sred)[i])
-    k += g + ' '
-
-print(f'Среднее значение: {k}')
+if m:
+    sred = (max(m) + min(m)) // 2
+    k = ''
+    for i in range(len(str(sred))):
+        g = slovo(str(sred)[i])
+        k += g + ' '
+    print(f'Среднее значение: {sred} - {k}.')
+else:
+    print('В файле нет подходящих значений.')
