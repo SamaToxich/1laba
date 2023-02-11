@@ -1,7 +1,9 @@
 x = open('test.txt')
-a = list(map(int, x.readline()))
+a = list(x.readline())
 
 m = []
+chisla = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+a = [int(x) for x in a if x in chisla]
 
 
 def chet(v):
@@ -13,23 +15,23 @@ def chet(v):
 
 
 def slovo(x):
-    z = {'0':'ноль',
-         '1':'один',
-         '2':'два',
-         '3':'три',
-         '4':'четыре',
-         '5':'пять',
-         '6':'шесть',
-         '7':'семь',
-         '8':'восемь',
-         '9':'девять'
-          }
+    z = {'0': 'ноль',
+         '1': 'один',
+         '2': 'два',
+         '3': 'три',
+         '4': 'четыре',
+         '5': 'пять',
+         '6': 'шесть',
+         '7': 'семь',
+         '8': 'восемь',
+         '9': 'девять'
+         }
     return z[x]
-    
 
-for i in range(len(a)-1):
-    s = str(a[i]) + str(a[i+1])
-    if 0 < a[i] < 4 and a[i+1] < 4:
+
+for i in range(len(a) - 1):
+    s = str(a[i]) + str(a[i + 1])
+    if 0 < a[i] < 4 and a[i + 1] < 4:
         if int(s) < chet(1025):
             if int(s) % 2 == 1:
                 if s[-2] == '3':
@@ -40,9 +42,9 @@ for i in range(len(a)-1):
                             l += s[i]
                     print(l)
 
-for i in range(len(a)-2):
-    s = str(a[i]) + str(a[i+1]) + str(a[i+2])
-    if 0 < a[i] < 4 and a[i+1] < 4 and a[i+2] < 4:
+for i in range(len(a) - 2):
+    s = str(a[i]) + str(a[i + 1]) + str(a[i + 2])
+    if 0 < a[i] < 4 and a[i + 1] < 4 and a[i + 2] < 4:
         if int(s) < chet(1025):
             if int(s) % 2 == 1:
                 if s[-2] == '3':
@@ -53,9 +55,9 @@ for i in range(len(a)-2):
                             l += s[i]
                     print(l)
 
-for i in range(len(a)-3):
-    s = str(a[i]) + str(a[i+1]) + str(a[i+2]) + str(a[i+3])
-    if 0 < a[i] < 4 and a[i+1] < 4 and a[i+2] < 4 and a[i+3] < 4:
+for i in range(len(a) - 3):
+    s = str(a[i]) + str(a[i + 1]) + str(a[i + 2]) + str(a[i + 3])
+    if 0 < a[i] < 4 and a[i + 1] < 4 and a[i + 2] < 4 and a[i + 3] < 4:
         if int(s) < chet(1025):
             if int(s) % 2 == 1:
                 if s[-2] == '3':
@@ -66,9 +68,9 @@ for i in range(len(a)-3):
                             l += s[i]
                     print(l)
 
-for i in range(len(a)-4):
-    s = str(a[i]) + str(a[i+1]) + str(a[i+2]) + str(a[i+3]) + str(a[i+4])
-    if 0 < a[i] < 4 and a[i+1] < 4 and a[i+2] < 4 and a[i+3] < 4 and a[i+4] < 4:
+for i in range(len(a) - 4):
+    s = str(a[i]) + str(a[i + 1]) + str(a[i + 2]) + str(a[i + 3]) + str(a[i + 4])
+    if 0 < a[i] < 4 and a[i + 1] < 4 and a[i + 2] < 4 and a[i + 3] < 4 and a[i + 4] < 4:
         if int(s) < chet(1025):
             if int(s) % 2 == 1:
                 if s[-2] == '3':
